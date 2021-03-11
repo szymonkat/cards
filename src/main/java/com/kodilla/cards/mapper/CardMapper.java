@@ -5,6 +5,9 @@ import com.kodilla.cards.dto.CardDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 @RequiredArgsConstructor
 public class CardMapper {
@@ -24,4 +27,18 @@ public class CardMapper {
                 card.getCardNumber(),
                 card.getCustomerId());
     }
+
+    public List<Card> mapToCardList(List<CardDto> cardDtoList) {
+        return cardDtoList.stream()
+                .map(this::mapToCard)
+                .collect(Collectors.toList());
+    }
+
+
+    public List<CardDto> mapToCardDtoList(List<Card> cardList) {
+        return cardList.stream()
+                .map(this::mapToCardDto)
+                .collect(Collectors.toList());
+    }
+
 }
